@@ -1,0 +1,209 @@
+html {
+  box-sizing: border-box;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: inherit;
+}
+
+body {
+  font-family: "Nunito Sans", sans-serif;
+  color: #000000;
+  background-color: #bebebe;
+}
+body.dark-mode {
+  background-color: #304452;
+  color: #c4c4c4;
+}
+body.dark-mode input,
+body.dark-mode .navbar,
+body.dark-mode .btn-dark-mode,
+body.dark-mode .form-search,
+body.dark-mode .custom-select select,
+body.dark-mode .select-selected,
+body.dark-mode .select-items {
+  background-color: #252f38;
+  color: #c4c4c4;
+}
+body.dark-mode .select-selected::after {
+  border-top-color: #c4c4c4;
+}
+body.dark-mode .card {
+  background-color: #252f38;
+}
+
+.container {
+  margin-left: auto;
+  margin-right: auto;
+  width: 80%;
+}
+
+.img-fluid {
+  width: 100%;
+}
+
+.my-2 {
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+}
+
+.navbar {
+  background-color: #bfd1e6;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+}
+
+.navbar-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.btn-dark-mode {
+  background-color: #bfd1e6;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  opacity: 1;
+  transition: 0.3s;
+  color: #000000;
+}
+.btn-dark-mode:hover {
+  opacity: 0.6;
+}
+
+.filter-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.form-search {
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  border-radius: 0.35rem;
+  background-color: #bfd1e6;
+  padding: 1rem;
+}
+.form-search i {
+  opacity: 0.5;
+}
+.form-search input {
+  border: none;
+  outline: none;
+  margin-left: 1rem;
+  background-color: #bfd1e6;
+  color: #000000;
+}
+
+.custom-select {
+  position: relative;
+  width: 200px;
+}
+.custom-select select {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  width: 100%;
+  padding: 10px;
+  background-color: #bfd1e6;
+  color: #000000;
+  border: 1px solid #ccc;
+  border-radius: 0.35rem;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  font-size: 1rem;
+  cursor: pointer;
+  outline: none;
+}
+.custom-select .select-selected {
+  position: relative;
+  padding-right: 30px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.custom-select .select-selected::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  right: 10px;
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  border-top: 5px solid #000000;
+  transform: translateY(-50%);
+}
+.custom-select .select-items {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  background-color: #bfd1e6;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  border-radius: 0.35rem;
+  z-index: 99;
+  display: none;
+}
+.custom-select .select-items div {
+  padding: 10px;
+  cursor: pointer;
+  color: #000000;
+}
+.custom-select .select-items div:hover {
+  background-color: rgba(0, 0, 0, 0.1);
+}
+.custom-select.open .select-items {
+  display: block;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 2rem;
+}
+
+.card {
+  overflow: hidden;
+  background-color: #bfd1e6;
+  border-radius: 0.35rem;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+}
+.card img {
+  border-top-left-radius: 0.35rem;
+  border-top-right-radius: 0.35rem;
+}
+.card .card-content {
+  padding: 2rem;
+}
+.card .card-content h3 {
+  margin-bottom: 2rem;
+}
+
+@media (max-width: 1000px) {
+  .grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+@media (max-width: 750px) {
+  .grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+@media (max-width: 600px) {
+  .navbar-content {
+    font-size: 0.6rem;
+  }
+  .filter-content {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .form-search {
+    width: 100%;
+    margin-bottom: 1rem;
+  }
+  .form-search input {
+    width: 85%;
+  }
+  .grid {
+    grid-template-columns: repeat(1, minmax(0, 1fr));
+  }
+}
