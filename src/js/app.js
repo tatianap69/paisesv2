@@ -10,8 +10,29 @@ const btnDark = document.querySelector(".btn-dark-mode");
 const query = new URLSearchParams(window.location.search);
 const params = query.get("name");
 
+// --- actualización de llamado a la API ---
+const fetchPaises = async () => {
+  // primer grupo de campos
+  const campos1 = ["name", "flags", "capital", "region", "subregion", "population"];
+  // segundo grupo de campos
+  const campos2 = ["languages", "currencies", "timezones", "demonyms", "maps", "continents"];
+
+  const url1 = `https://restcountries.com/v3.1/all?fields=${campos1.join(",")}`;
+  const url2 = `https://restcountries.com/v3.1/all?fields=${campos2.join(",")}`;
+
+  const [res1, res2] = await Promise.all([fetch(url1), fetch(url2)]);
+  const [data1, data2] = await Promise.all([res1.json(), res2.json()]);
+
+  // combinar resultados
+  return data1.map((pais, i) => ({
+    ...pais,
+    ...data2[i]
+  }));
+};
+
+
 // cargar datos
-document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener("DOMContentLoaded", async () => {
   if (params) {
     cargarDetallePais();
   } else {
@@ -40,15 +61,14 @@ if (selectRegion) {
 // función para cargar todos los países
 const cargarDatos = async (searchTerm = "", region = "") => {
   try {
-    const res = await fetch("https://restcountries.com/v3.1/all");
-    let data = await res.json();
+    let data = await fetchPaises();
 
     // filtrar por término de búsqueda
     if (searchTerm) {
       data = data.filter(
         (country) =>
           country.name.common.toLowerCase().includes(searchTerm) ||
-          (country.translations.spa &&
+          (country.translations?.spa &&
             country.translations.spa.common.toLowerCase().includes(searchTerm))
       );
     }
@@ -97,8 +117,7 @@ const cargarBanderas = (data) => {
 // función para cargar los detalles de un país
 const cargarDetallePais = async () => {
   try {
-    const res = await fetch("https://restcountries.com/v3.1/all");
-    const data = await res.json();
+    const data = await fetchPaises();
 
     // filtrar el país por el parámetro en la URL
     const filtroData = data.filter(
@@ -166,9 +185,9 @@ if (btnDark) {
     document.body.classList.toggle("dark-mode");
 
     if (document.body.classList.contains("dark-mode")) {
-      btnDark.innerHTML = `<i class="far fa-sun"></i> Modo claro`;
+      btnDark.innerHTML = `<i class="fa-solid fa-sun"></i> Modo claro`;
     } else {
-      btnDark.innerHTML = `<i class="far fa-moon"></i> Modo oscuro`;
+      btnDark.innerHTML = `<i class="fa-solid fa-moon"></i> Modo oscuro`;
     }
   });
 }
